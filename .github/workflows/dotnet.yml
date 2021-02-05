@@ -9,6 +9,11 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      NUGET_KEY: ${{secrets.NUGET_API_SECRET}}
+      Solution_Path: Rapi2.sln
+      Configuration: Release
+      RuntimeIdentifier: win-x86
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
@@ -17,12 +22,8 @@ jobs:
         dotnet-version: 3.1.x
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.1
-    - name: Build Rapi2
-      run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
-      env:
-        Solution_Path: Rapi2.sln
-        Configuration: Release
-        RuntimeIdentifier: win-x86
+    #- name: Build Rapi2
+    #  run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -33,4 +34,4 @@ jobs:
       uses: brandedoutcast/publish-nuget@v2.5.5
       with:
         PROJECT_FILE_PATH: Rapi2/Rapi2.csproj
-        NUGET_KEY: ${{secrets.NUGET_API_SECRET}}
+        NUGET_KEY: $env.NUGET_KEY
