@@ -5,6 +5,7 @@
 	<TargetFramework>netcoreapp3.1</TargetFramework>
 	<UseWindowsForms>true</UseWindowsForms>
 	<RootNamespace>Rapi2</RootNamespace>
+	<Version>1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
